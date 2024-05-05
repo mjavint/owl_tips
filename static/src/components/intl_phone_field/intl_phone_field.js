@@ -7,6 +7,12 @@ import { loadJS, loadCSS } from '@web/core/assets';
 import { useService } from '@web/core/utils/hooks';
 
 export class IntlPhoneField extends PhoneField {
+  static props = {
+    ...super.props,
+    separateDialCode: { type: Boolean, optional: true },
+    initialCountry: { type: String, optional: true },
+    onlyCountries: { type: Array, optional: true },
+  };
   setup() {
     super.setup();
     console.log('Inherit Widget Phone');
@@ -30,8 +36,10 @@ export class IntlPhoneField extends PhoneField {
 
     onMounted(() => {
       this.state.iti = intlTelInput(this.phoneInput.el, {
-        utilsScript:
-          '/owl_tips/static/src/lib/intl-tel-input/build/js/utils.js',
+        separateDialCode: this.props.separateDialCode,
+        initialCountry: this.props.initialCountry,
+        onlyCountries: this.props.onlyCountries,
+        utilsScript: '/owl_tips/static/src/lib/intl-tel-input/build/js/utils.js',
       });
     });
   }
@@ -62,6 +70,13 @@ IntlPhoneField.template = 'owl_tips.IntlPhoneField';
 
 export const intlPhoneFieldProps = {
   component: IntlPhoneField,
+  extractProps: ({ options }) => {
+    return {
+      separateDialCode: options.separate_dial_code,
+      initialCountry: options.initial_country,
+      onlyCountries: options.only_countries || [],
+    };
+  },
 };
 
 registry.category('fields').add('intl_phone', intlPhoneFieldProps);

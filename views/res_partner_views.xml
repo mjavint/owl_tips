@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <field name="phone" position="attributes">
                 <attribute name="widget">intl_phone</attribute>
+                <attribute name="options">{'separate_dial_code': True, 'initial_country': 'us', 'only_countries': ["at", "by", "be", "ba","us"]}</attribute>
             </field>
         </field>
     </record>
