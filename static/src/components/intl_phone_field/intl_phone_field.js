@@ -78,5 +78,4 @@ export const intlPhoneFieldProps = {
     };
   },
 };
-
 registry.category('fields').add('intl_phone', intlPhoneFieldProps);
